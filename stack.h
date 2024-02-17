@@ -16,4 +16,8 @@ typedef struct stack
 }
 stack;
 
+void push(stack *the_stack, char character);
+char pop(stack *the_stack);
+int is_empty(stack *the_stack);
+
 #endif	// STACK
