@@ -2,23 +2,33 @@
 #include <stdlib.h>
 #include "stack.h"
 
+void start_game();
+
 int
 main()
 {
-    stack *the_stack = (stack *) malloc(sizeof(stack));
-    the_stack->head = NULL;
+    int option_selected;
 
-    push(the_stack, 'h');
-    push(the_stack, 'o');
-    push(the_stack, 'l');
-    push(the_stack, 'a');
+    do
+    {
+	printf("El juego del ahorcado\n\n");
 
-    printf("%c\n", pop(the_stack));
-    printf("%c\n", pop(the_stack));
-    printf("%c\n", pop(the_stack));
-    printf("%c\n", pop(the_stack));
+	printf("1 - Empezar a jugar\n");
+	printf("2 - Salir del juego\n");
 
-    free(the_stack);
+	printf("\nElija una opción: ");
+
+	scanf("%d", &option_selected);
+
+	if (option_selected == 1)
+	    start_game();
+    }
+    while (option_selected != 2);
 
     return 0; 
+}
+
+void
+start_game()
+{
 }
