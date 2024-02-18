@@ -1,8 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "stack.h"
-
-void start_game();
+#include "logic.h"
 
 int
 main()
@@ -26,9 +23,4 @@ main()
     while (option_selected != 2);
 
     return 0; 
-}
-
-void
-start_game()
-{
 }
