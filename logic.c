@@ -32,6 +32,27 @@ start_game()
 	draw_board(board, len_word);
     	check_board(board, word_selected, len_word, &num_attempts);
     }
+
+    finish_game(num_attempts, word_selected);
+}
+
+void
+finish_game(int num_attempts, unsigned char *word_selected)
+{
+    system("clear");
+    draw_hangman(num_attempts);
+    printf("La palabra es: %s\n", word_selected);
+
+    if (is_over(num_attempts))
+	printf("Fuiste ahorcado...\n");
+    else
+	printf("Felicitaciones, salvaste tu vida, por ahora...\n");
+
+    printf("\nPresiona cualquier tecla para salir: ");
+    clean_buffer();
+    getchar();
+
+    system("clear");
 }
 
 int
