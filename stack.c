@@ -26,7 +26,7 @@ push(stack *the_stack, char character)
 char
 pop(stack *the_stack)
 {
-    char character = '\n';
+    char character = '\0';
 
     if (!is_empty(the_stack))
     {

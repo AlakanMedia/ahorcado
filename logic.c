@@ -25,30 +25,39 @@ start_game()
     for (int i = 0; i < len_word; i++)
 	*(board + i) = '_';
 
+    stack *the_stack = (stack *) malloc(sizeof(stack));
+    the_stack->head = NULL;
+
     while (!is_over(num_attempts) && !is_victory(board, len_word))
     {
 	system("clear");
 	draw_hangman(num_attempts);
 	draw_board(board, len_word);
-    	check_board(board, word_selected, len_word, &num_attempts);
+    	check_board(the_stack, board, word_selected, len_word, &num_attempts);
     }
 
-    finish_game(num_attempts, word_selected);
+    finish_game(the_stack, num_attempts, word_selected);
+    free(the_stack);
 }
 
 void
-finish_game(int num_attempts, unsigned char *word_selected)
+finish_game(stack *the_stack, int num_attempts, unsigned char *word_selected)
 {
     system("clear");
     draw_hangman(num_attempts);
-    printf("La palabra es: %s\n", word_selected);
+    printf("La palabra es: %s\n\n", word_selected);
 
     if (is_over(num_attempts))
 	printf("Fuiste ahorcado...\n");
     else
 	printf("Felicitaciones, salvaste tu vida, por ahora...\n");
 
-    printf("\nPresiona cualquier tecla para salir: ");
+    printf("Letras seleccionadas: ");
+
+    while (the_stack->head != NULL)
+	printf("%c, ", pop(the_stack));
+
+    printf("\n\nPresiona cualquier tecla para salir: ");
     clean_buffer();
     getchar();
 
@@ -97,7 +106,7 @@ draw_hangman(int num_attempts)
 }
 
 void
-check_board(unsigned char board[], unsigned char *word,
+check_board(stack *the_stack, unsigned char board[], unsigned char *word,
 	    int len_word, int *num_attempts)
 {
     unsigned char character;
@@ -106,6 +115,7 @@ check_board(unsigned char board[], unsigned char *word,
     clean_buffer();
     printf("Digite una letra: ");
     character = getchar();
+    push(the_stack, character);
 
     for (int i = 0; i < len_word; i++)
 	if (*(word + i) == character)
