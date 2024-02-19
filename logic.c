@@ -4,6 +4,15 @@
 #include "logic.h"
 
 void
+clean_buffer()
+{
+    int ch_clean;
+
+    // Esta línea la uso para limpiar el buffer
+    while ((ch_clean = getchar()) != '\n' && ch_clean != EOF);
+}
+
+void
 start_game()
 {
     system("clear");
@@ -16,22 +25,29 @@ start_game()
     for (int i = 0; i < len_word; i++)
 	*(board + i) = '_';
 
-    while (num_attempts >= 0)
+    while (!is_over(num_attempts) && !is_victory(board, len_word))
     {
 	system("clear");
 	draw_hangman(num_attempts);
-
-	if (num_attempts == 0)
-	{
-	    printf("Juego terminado\n"); // Aquí debe de ir la función is_over
-	    num_attempts--;
-	}
-	else
-	{
-	    draw_board(board, len_word);
-    	    check_board(board, word_selected, len_word, &num_attempts);
-	}
+	draw_board(board, len_word);
+    	check_board(board, word_selected, len_word, &num_attempts);
     }
+}
+
+int
+is_over(int num_attempts)
+{
+    return (num_attempts > 0) ? 0 : 1;
+}
+
+int
+is_victory(unsigned char board[], int len_word)
+{
+    for (int i = 0; i < len_word; i++)
+	if (*(board + i) == '_')
+	    return 0;
+    
+    return 1;
 }
 
 void
@@ -65,22 +81,17 @@ check_board(unsigned char board[], unsigned char *word,
 {
     unsigned char character;
     int is_in_word = 0;
-    int clean_buffer;
 
-    // Esta línea la uso para limpiar el buffer
-    while ((clean_buffer = getchar()) != '\n' && clean_buffer != EOF);
-
+    clean_buffer();
     printf("Digite una letra: ");
     character = getchar();
 
     for (int i = 0; i < len_word; i++)
-    {
 	if (*(word + i) == character)
 	{
 	    *(board + i) = character;
 	    is_in_word = 1;
 	}
-    }
 
     if (!is_in_word)
 	(*num_attempts)--;
