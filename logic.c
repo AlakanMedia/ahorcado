@@ -17,27 +17,36 @@ start_game()
 {
     system("clear");
 
-    unsigned char *word_selected = "Zanahoria";
-    int len_word = strlen(word_selected);
-    unsigned char board[len_word];
-    int num_attempts = ATTEMPTS;
-
-    for (int i = 0; i < len_word; i++)
-	*(board + i) = '_';
-
     stack *the_stack = (stack *) malloc(sizeof(stack));
-    the_stack->head = NULL;
 
-    while (!is_over(num_attempts) && !is_victory(board, len_word))
+    if (the_stack == NULL)
+	printf("Error: no se pudo asignar memoria\n");
+    else
     {
-	system("clear");
-	draw_hangman(num_attempts);
-	draw_board(board, len_word);
-    	check_board(the_stack, board, word_selected, len_word, &num_attempts);
-    }
+	the_stack->head = NULL;
 
-    finish_game(the_stack, num_attempts, word_selected);
-    free(the_stack);
+    	unsigned char *word_selected = "Zanahoria";
+    	int len_word = strlen(word_selected);
+    	unsigned char board[len_word];
+    	int num_attempts = ATTEMPTS;
+
+    	for (int i = 0; i < len_word; i++)
+    	    *(board + i) = '_';
+
+
+    	while (!is_over(num_attempts) && !is_victory(board, len_word))
+    	{
+    	    system("clear");
+    	    draw_hangman(num_attempts);
+    	    draw_board(board, len_word);
+    	    check_board(the_stack, board, word_selected,
+			len_word, &num_attempts);
+    	}
+
+    	finish_game(the_stack, num_attempts, word_selected);
+    	free(the_stack);
+    	the_stack = NULL;
+    }
 }
 
 void
@@ -115,15 +124,19 @@ check_board(stack *the_stack, unsigned char board[], unsigned char *word,
     clean_buffer();
     printf("Digite una letra: ");
     character = getchar();
-    push(the_stack, character);
 
-    for (int i = 0; i < len_word; i++)
-	if (*(word + i) == character)
-	{
-	    *(board + i) = character;
-	    is_in_word = 1;
-	}
-
-    if (!is_in_word)
-	(*num_attempts)--;
+    if (push(the_stack, character))
+    {
+        for (int i = 0; i < len_word; i++)
+	    if (*(word + i) == character)
+	    {
+		*(board + i) = character;
+		is_in_word = 1;
+	    }
+    
+	    if (!is_in_word)
+	    (*num_attempts)--;
+    }
+    else
+	printf("\nSucedió un error inesperado");
 }
