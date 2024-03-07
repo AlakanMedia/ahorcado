@@ -13,11 +13,12 @@ node;
 typedef struct stack
 {
     node *head; 
+	int size;
 }
 stack;
 
-int push(stack *the_stack, char character);
-char pop(stack *the_stack);
-int is_empty(stack *the_stack);
+char push(stack *the_stack, unsigned char character);
+unsigned char pop(stack *the_stack);
+char is_empty(stack *the_stack);
 
 #endif	// STACK

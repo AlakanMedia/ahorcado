@@ -3,7 +3,7 @@
 
 typedef struct letter
 {
-    char character;
+    unsigned char character;
 }
 letter;
 
