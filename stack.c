@@ -26,6 +26,8 @@ push(stack *the_stack, unsigned char character)
         the_stack->head = new_node;
     }
 
+	the_stack->size++;
+
 	return 1;
 }
 
@@ -35,14 +37,15 @@ pop(stack *the_stack)
 	if (is_empty(the_stack))
 		return '\0';
 
-    unsigned char character;
-	character = the_stack->head->ch.character;
+    unsigned char character = the_stack->head->ch.character;
 
     node *aux = the_stack->head;
     the_stack->head = the_stack->head->back;
     aux->back = NULL;
     free(aux);
 	aux = NULL;
+
+	the_stack->size--;
 
     return character;
 }
