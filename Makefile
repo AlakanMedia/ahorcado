@@ -3,7 +3,7 @@ all: program
 program: main.o logic.o stack.o
 	gcc -o ahorcado main.o logic.o stack.o
 
-main.o: main.c stack.h
+main.o: main.c
 	gcc -c main.c
 
 logic.o: logic.c logic.h
