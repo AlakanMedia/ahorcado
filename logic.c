@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <string.h>
 #include "logic.h"
 
@@ -19,13 +20,17 @@ start_game()
 
     stack *the_stack = (stack *) malloc(sizeof(stack));
 
-    if (the_stack == NULL)
-	printf("Error: no se pudo asignar memoria\n");
+    if (!the_stack)
+		printf("Error: no se pudo asignar memoria\n");
     else
     {
-	the_stack->head = NULL;
+		the_stack->head = NULL;
+		the_stack->size = 0;
 
-    	unsigned char *word_selected = "Zanahoria";
+		srand(time(NULL));
+		int index = rand() % NUM_WORDS;
+
+    	unsigned char *word_selected = words_game[index];
     	int len_word = strlen(word_selected);
     	unsigned char board[len_word];
     	int num_attempts = ATTEMPTS;
@@ -33,14 +38,13 @@ start_game()
     	for (int i = 0; i < len_word; i++)
     	    *(board + i) = '_';
 
-
     	while (!is_over(num_attempts) && !is_victory(board, len_word))
     	{
     	    system("clear");
     	    draw_hangman(num_attempts);
     	    draw_board(board, len_word);
     	    check_board(the_stack, board, word_selected,
-			len_word, &num_attempts);
+						len_word, &num_attempts);
     	}
 
     	finish_game(the_stack, num_attempts, word_selected);
@@ -57,34 +61,32 @@ finish_game(stack *the_stack, int num_attempts, unsigned char *word_selected)
     printf("La palabra es: %s\n\n", word_selected);
 
     if (is_over(num_attempts))
-	printf("Fuiste ahorcado...\n");
+		printf("Fuiste ahorcado...\n");
     else
-	printf("Felicitaciones, salvaste tu vida, por ahora...\n");
+		printf("Felicitaciones, salvaste tu vida, por ahora...\n");
 
     printf("Letras seleccionadas: ");
 
-    while (the_stack->head != NULL)
-	printf("%c, ", pop(the_stack));
+    while (the_stack->head)
+		printf("%c, ", pop(the_stack));
 
     printf("\n\nPresiona cualquier tecla para salir: ");
-    clean_buffer();
     getchar();
-
-    system("clear");
+    clean_buffer();
 }
 
-int
+char
 is_over(int num_attempts)
 {
     return (num_attempts > 0) ? 0 : 1;
 }
 
-int
+char
 is_victory(unsigned char board[], int len_word)
 {
     for (int i = 0; i < len_word; i++)
-	if (*(board + i) == '_')
-	    return 0;
+		if (*(board + i) == '_')
+	    	return 0;
     
     return 1;
 }
@@ -93,7 +95,7 @@ void
 draw_board(unsigned char board[], int len_word)
 {
     for (int i = 0; i < len_word; i++)
-	printf("%c ", *(board + i));
+		printf("%c ", *(board + i));
 
     printf("\n");
 }
@@ -116,27 +118,27 @@ draw_hangman(int num_attempts)
 
 void
 check_board(stack *the_stack, unsigned char board[], unsigned char *word,
-	    int len_word, int *num_attempts)
+	    	int len_word, int *num_attempts)
 {
     unsigned char character;
-    int is_in_word = 0;
+    char is_in_word = 0;
 
-    clean_buffer();
     printf("Digite una letra: ");
     character = getchar();
+    clean_buffer();
 
     if (push(the_stack, character))
     {
         for (int i = 0; i < len_word; i++)
-	    if (*(word + i) == character)
-	    {
-		*(board + i) = character;
-		is_in_word = 1;
-	    }
+	    	if (*(word + i) == character)
+	    	{
+				*(board + i) = character;
+				is_in_word = 1;
+	    	}
     
 	    if (!is_in_word)
-	    (*num_attempts)--;
+	    	(*num_attempts)--;
     }
     else
-	printf("\nSucedió un error inesperado");
+		printf("\nSucedió un error inesperado");
 }

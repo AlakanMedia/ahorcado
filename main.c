@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "logic.h"
 
 int
@@ -8,17 +9,18 @@ main()
 
     do
     {
-	printf("El juego del ahorcado\n\n");
+		system("clear");
 
-	printf("1 - Empezar a jugar\n");
-	printf("2 - Salir del juego\n");
+		printf("El juego del ahorcado\n\n");
+		printf("1 - Empezar a jugar\n");
+		printf("2 - Salir del juego\n");
+		printf("\nElija una opción: ");
 
-	printf("\nElija una opción: ");
+		scanf("%d", &option_selected);
+		clean_buffer();
 
-	scanf("%d", &option_selected);
-
-	if (option_selected == 1)
-	    start_game();
+		if (option_selected == 1)
+		    start_game();
     }
     while (option_selected != 2);
 
