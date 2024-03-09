@@ -1,16 +1,18 @@
-all: program
+CC = gcc
 
-program: main.o logic.o stack.o
-	gcc -o ahorcado main.o logic.o stack.o
+all: ahorcado
 
-main.o: main.c
-	gcc -c main.c
+ahorcado: main.o logic.o stack.o
+	$(CC) $^ -o $@
 
-logic.o: logic.c logic.h
-	gcc -c logic.c
+main.o: main.c logic.h
+	$(CC) -c main.c
+
+logic.o: logic.c logic.h stack.h
+	$(CC) -c logic.c
 
 stack.o: stack.c stack.h letter.h
-	gcc -c stack.c
+	$(CC) -c stack.c
 
 clean:
-	rm -f *.o ahorcado
+	rm -rf *.o ahorcado
