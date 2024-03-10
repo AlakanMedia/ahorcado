@@ -1,5 +1,5 @@
-#ifndef LETTER
-#define LETTER
+#ifndef LETTER_H
+#define LETTER_H
 
 typedef struct letter
 {
@@ -7,4 +7,4 @@ typedef struct letter
 }
 letter;
 
-#endif	// LETTER
+#endif	// LETTER_H

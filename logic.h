@@ -1,5 +1,5 @@
-#ifndef LOGIC
-#define LOGIC
+#ifndef LOGIC_H
+#define LOGIC_H
 
 #include "stack.h"
 
@@ -21,4 +21,4 @@ void finish_game(stack *the_stack, int num_attempts,
 char is_over(int num_attempts);
 char is_victory(unsigned char board[], int len_word);
 
-#endif // LOGIC
+#endif // LOGIC_H

@@ -1,5 +1,5 @@
-#ifndef STACK
-#define STACK
+#ifndef STACK_H
+#define STACK_H
 
 #include "letter.h"
 
@@ -21,4 +21,4 @@ char push(stack *the_stack, unsigned char character);
 unsigned char pop(stack *the_stack);
 char is_empty(stack *the_stack);
 
-#endif	// STACK
+#endif	// STACK_H
