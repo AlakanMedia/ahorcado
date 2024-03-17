@@ -1,10 +1,10 @@
 #ifndef LETTER_H
 #define LETTER_H
 
-typedef struct letter
+typedef struct Letter
 {
     unsigned char character;
 }
-letter;
+Letter;
 
 #endif	// LETTER_H

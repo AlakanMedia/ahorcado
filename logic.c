@@ -18,10 +18,10 @@ start_game()
 {
     system("clear");
 
-    stack *the_stack = (stack *) malloc(sizeof(stack));
+    Stack *the_stack = (Stack *) malloc(sizeof(Stack));
 
     if (!the_stack)
-		printf("Error: no se pudo asignar memoria\n");
+		fprintf(stderr, "Error: no se pudo asignar memoria\n");
     else
     {
 		the_stack->head = NULL;
@@ -54,7 +54,7 @@ start_game()
 }
 
 void
-finish_game(stack *the_stack, int num_attempts, unsigned char *word_selected)
+finish_game(Stack *the_stack, int num_attempts, unsigned char *word_selected)
 {
     system("clear");
     draw_hangman(num_attempts);
@@ -117,7 +117,7 @@ draw_hangman(int num_attempts)
 }
 
 void
-check_board(stack *the_stack, unsigned char board[], unsigned char *word,
+check_board(Stack *the_stack, unsigned char board[], unsigned char *word,
 	    	int len_word, int *num_attempts)
 {
     unsigned char character;
@@ -140,5 +140,5 @@ check_board(stack *the_stack, unsigned char board[], unsigned char *word,
 	    	(*num_attempts)--;
     }
     else
-		printf("\nSucedió un error inesperado");
+		fprintf(stderr, "\nSucedió un error inesperado");
 }

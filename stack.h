@@ -3,22 +3,22 @@
 
 #include "letter.h"
 
-typedef struct node
+typedef struct Node
 {
-    letter ch;
-    struct node *back;
+    Letter ch;
+    struct Node *back;
 }
-node;
+Node;
 
-typedef struct stack
+typedef struct Stack
 {
-    node *head; 
+    Node *head; 
 	int size;
 }
-stack;
+Stack;
 
-char push(stack *the_stack, unsigned char character);
-unsigned char pop(stack *the_stack);
-char is_empty(stack *the_stack);
+char push(Stack *the_stack, unsigned char character);
+unsigned char pop(Stack *the_stack);
+char is_empty(Stack *the_stack);
 
 #endif	// STACK_H

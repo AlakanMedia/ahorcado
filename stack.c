@@ -2,15 +2,15 @@
 #include "stack.h"
 
 char
-is_empty(stack *the_stack)
+is_empty(Stack *the_stack)
 {
     return (the_stack->size) ? 0 : 1;
 }
 
 char
-push(stack *the_stack, unsigned char character)
+push(Stack *the_stack, unsigned char character)
 {
-    node *new_node = (node *) malloc(sizeof(node));  
+    Node *new_node = (Node *) malloc(sizeof(Node));  
 
     if (!new_node)
 		return 0;
@@ -32,14 +32,14 @@ push(stack *the_stack, unsigned char character)
 }
 
 unsigned char
-pop(stack *the_stack)
+pop(Stack *the_stack)
 {
 	if (is_empty(the_stack))
 		return '\0';
 
     unsigned char character = the_stack->head->ch.character;
 
-    node *aux = the_stack->head;
+    Node *aux = the_stack->head;
     the_stack->head = the_stack->head->back;
     aux->back = NULL;
     free(aux);
