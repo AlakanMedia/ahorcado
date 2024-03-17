@@ -4,11 +4,13 @@
 #include "stack.h"
 
 #define ATTEMPTS 8
-#define NUM_WORDS 6
+#define NUM_WORDS 10
 
 static unsigned char *words_game[NUM_WORDS] = { "zanahoria", "lapicero",
 												"escritorio", "espiral",
-												"payaso", "festival" };
+												"payaso", "festival",
+                                                "florero", "farmacia",
+                                                "engranaje", "adhesivo" };
 
 void clean_buffer();
 void start_game();

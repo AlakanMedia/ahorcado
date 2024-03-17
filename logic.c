@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
 #include "logic.h"
 
@@ -27,7 +26,6 @@ start_game()
 		the_stack->head = NULL;
 		the_stack->size = 0;
 
-		srand(time(NULL));
 		int index = rand() % NUM_WORDS;
 
     	unsigned char *word_selected = words_game[index];

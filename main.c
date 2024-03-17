@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "logic.h"
 
 int
 main()
 {
     int option_selected;
+	srand(time(NULL));
 
     do
     {
